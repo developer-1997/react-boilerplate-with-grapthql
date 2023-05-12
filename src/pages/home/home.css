@@ -1,0 +1,23 @@
+.banner-hg {
+    background-color: #FFF7E9;
+    height: 285px;
+}
+.card-body .btn-warning {
+    background-color: #f5d47a;
+}
+.card-body .btn-warning:hover {
+    background-color: #F8C15D;
+}
+.card-body .btn-dark:hover {
+    background-color: #58371F;
+}
+.card-body button {
+    font-size: 14px;
+}
+.card-footer a {
+    color: #00635d;
+}
+.card-footer a:hover {
+    color: #00635d;
+    text-decoration: underline !important;
+}

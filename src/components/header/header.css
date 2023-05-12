@@ -1,0 +1,30 @@
+.header-bg {
+    height: 50px;
+    border: 0;
+    background-position: center;
+    background-color: #f4f2e9;
+    box-shadow: 0 1px 2px rgb(0 0 0 / 15%)
+}
+
+.nav-item:hover {
+    color: #FFFFFF;
+    background-color: #382110;
+}
+
+.navbar-light .navbar-nav .nav-item:hover .nav-link {
+    color: #FFFFFF;
+}
+
+.profile-icon{
+    background-color: transparent !important;
+    border: none !important;
+}
+
+.profile-icon:active{
+    border: none !important;
+}
+
+.profile-icon:focus{
+    border: none !important;
+    box-shadow: none !important;
+}
