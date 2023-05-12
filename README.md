@@ -1,12 +1,8 @@
 ## Boilerplate For React With Graph
 
-Objective: The task is to build a web application that allows users to see book list, update rating check mybook page.
-
-this project was bootstrapped by [Create React App](https://create-react-app.dev/)
-
 Source Code:
 
-- Frontend+Backend: github - https://github.com/developer-1997/react-boilerplate-with-grapthql
+- Frontend: github - https://github.com/developer-1997/react-boilerplate-with-grapthql
 
 Features:
 
