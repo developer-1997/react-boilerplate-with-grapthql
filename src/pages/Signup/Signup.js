@@ -1,5 +1,5 @@
-import React from "react";
-import { Form, Col, Button } from "react-bootstrap";
+import React, { useState } from "react";
+import { Form, Col, Button, Spinner } from "react-bootstrap";
 import * as Yup from "yup";
 import { Formik } from "formik";
 import { Link, useNavigate } from "react-router-dom";
@@ -23,10 +23,13 @@ const SignupSchema = Yup.object().shape({
 const Signup = () => {
   const navigate = useNavigate();
   const [signupUser] = useMutation(SIGNUP_USER);
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = (values, { resetForm }) => {
+    setLoading(true);
     signupUser({ variables: { input: { ...values } } })
       .then((result) => {
+        setLoading(false);
         const { errors, data } = result;
         if (data.signupUser.status === "success") {
           toast("Registered successfully !");
@@ -39,6 +42,8 @@ const Signup = () => {
         }
       })
       .catch((error) => {
+        toast.error(error.message);
+        setLoading(false);
         console.log(error);
       });
   };
@@ -165,15 +170,20 @@ const Signup = () => {
                   <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                 </Form.Group>
 
-                <Button
-                  type="button"
-                  onClick={(event) => handleSubmit(event)}
-                  as={Col}
-                  sm="4"
-                  className="btn-signup btn btn-dark my-3"
-                >
-                  Create account
-                </Button>
+                {loading ? (
+                  <Spinner />
+                ) : (
+                  <Button
+                    type="button"
+                    onClick={(event) => handleSubmit(event)}
+                    as={Col}
+                    sm="4"
+                    disabled={loading}
+                    className="btn-signup btn btn-dark mx-auto mb-2"
+                  >
+                    Create Account
+                  </Button>
+                )}
                 <div>
                   Already have an account?{" "}
                   <Link to="/signin" className="text-dark">

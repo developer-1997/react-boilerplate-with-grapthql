@@ -1,5 +1,5 @@
-import React from "react";
-import { Form, Col, Button } from "react-bootstrap";
+import React, { useState } from "react";
+import { Form, Col, Button, Spinner } from "react-bootstrap";
 import * as Yup from "yup";
 import { Formik } from "formik";
 import { Link, useNavigate } from "react-router-dom";
@@ -21,10 +21,13 @@ const Signin = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [loginUser] = useMutation(SIGNIN_USER);
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = (values) => {
+    setLoading(true);
     loginUser({ variables: { input: { ...values } } })
       .then((result) => {
+        setLoading(false);
         const { errors, data } = result;
         if (data.loginUser.status === "success") {
           dispatch({ type: "GET_LOGIN_SUCCESS", payload: data.loginUser });
@@ -34,8 +37,9 @@ const Signin = () => {
         }
       })
       .catch((error) => {
+        setLoading(false);
         if (error.name === "ApolloError") {
-          toast(error.message);
+          toast.error(error.message);
         }
         console.log(error);
       });
@@ -113,28 +117,33 @@ const Signin = () => {
 
                 <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
               </Form.Group>
-              <div className="d-flex flex-column my-3 ">
+
+              {loading ? (
+                <Spinner />
+              ) : (
                 <Button
                   type="button"
                   onClick={(event) => handleSubmit(event)}
                   as={Col}
                   sm="4"
+                  disabled={loading}
                   className="btn-signup btn btn-dark mx-auto mb-2"
                 >
                   Sign in
                 </Button>
-                <div>
-                  <Link className="text-decoration-none me-2 " to={"/register"}>
-                    Sign Up
-                  </Link>
-                  |
-                  <Link
-                    className="text-decoration-none ms-2"
-                    to={"/forgotPassword"}
-                  >
-                    Forgot Password ?
-                  </Link>
-                </div>
+              )}
+
+              <div>
+                <Link className="text-decoration-none me-2 " to={"/register"}>
+                  Sign Up
+                </Link>
+                |
+                <Link
+                  className="text-decoration-none ms-2"
+                  to={"/forgotPassword"}
+                >
+                  Forgot Password ?
+                </Link>
               </div>
             </Form>
           )}
