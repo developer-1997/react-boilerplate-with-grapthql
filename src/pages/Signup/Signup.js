@@ -30,21 +30,16 @@ const Signup = () => {
     signupUser({ variables: { input: { ...values } } })
       .then((result) => {
         setLoading(false);
-        const { errors, data } = result;
+        const { data } = result;
         if (data.signupUser.status === "success") {
           toast("Registered successfully !");
           navigate("/login");
           resetForm({ values: "" });
         }
-
-        if (errors.name === "ApolloError") {
-          toast(errors.message);
-        }
       })
       .catch((error) => {
         toast.error(error.message);
         setLoading(false);
-        console.log(error);
       });
   };
 

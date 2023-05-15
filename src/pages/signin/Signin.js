@@ -28,7 +28,7 @@ const Signin = () => {
     loginUser({ variables: { input: { ...values } } })
       .then((result) => {
         setLoading(false);
-        const { errors, data } = result;
+        const { data } = result;
         if (data.loginUser.status === "success") {
           dispatch({ type: "GET_LOGIN_SUCCESS", payload: data.loginUser });
           localStorage.setItem("isLoggedIn", true);
